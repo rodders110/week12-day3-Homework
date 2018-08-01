@@ -22,6 +22,11 @@ const requestComplete = function(){
 const populateSelect = function(beers){
 
     let selectTag = document.getElementById('select');
+    let option = document.createElement('option');
+    option.value = 0;
+    option.innerText = 'Please select your poison';
+    option.selected = true;
+    selectTag.appendChild(option);
 
     let index = 0;
     beers.forEach(function(beer){
@@ -38,22 +43,33 @@ const populateSelect = function(beers){
     })
 }
 
+const clearContent = function(node){
+    while (node.hasChildNodes()){
+        node.removeChild(node.lastChild);
+    }
+}
+
 const populateList = function(beer){
     let divTag = document.getElementById('beers');
+    clearContent(divTag);
     let ul = document.createElement('ul');
     divTag.appendChild(ul);
     // beers.forEach(function(beer){
+        let titleName = document.createElement('h3')
+        titleName.innerText = 'Name:';
+        ul.appendChild(titleName);
         ul.appendChild(addItem(beer,'name', 'li'));
-        ul.appendChild(addItem(beer, 'image_url', 'img'));
-        let title = document.createElement('h3')
-        title.innerText = 'Hops Used';
-        ul.appendChild(title);
-        let ul2 = document.createElement('ul');
+        let titleHops = document.createElement('h3')
+        titleHops.innerText = 'Hops Used:';
+        ul.appendChild(titleHops);
         // console.log(beer["ingredients"])
         beer["ingredients"]["hops"].forEach(function(ingredient){
-            ul2.appendChild(addItem(ingredient, 'name', 'li'))
+            ul.appendChild(addItem(ingredient, 'name', 'li'))
             
         })
+        ul.appendChild(addItem(beer, 'image_url', 'img'));
+       
+        
     // })
 }
 
